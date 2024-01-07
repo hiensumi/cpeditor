@@ -169,7 +169,7 @@ void CodeEditor::setMainWindowStylesheet() {
     while (parentObject) {
         if (qobject_cast<QMainWindow*>(parentObject)) {
             // Found the QMainWindow, set the stylesheet
-            QMainWindow *mainWindow = qobject_cast<QMainWindow*>(parentObject);
+            auto *mainWindow = qobject_cast<QMainWindow*>(parentObject);
             mainWindow->setStyleSheet(QString("background-color: %1; selection-background-color: %2; color: %3;")
                                           .arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(),
                                                getEditorColor(KSyntaxHighlighting::Theme::TextSelection).name(),
