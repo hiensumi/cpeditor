@@ -30,6 +30,7 @@
 
 namespace Widgets
 {
+
 TestCaseEdit::TestCaseEdit(Role role, int id, MessageLogger *logger, const QString &text, QWidget *parent)
     : QPlainTextEdit(parent), log(logger), role(role), id(id)
 {

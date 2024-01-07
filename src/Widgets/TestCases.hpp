@@ -19,7 +19,11 @@
 #define TESTCASES_HPP
 
 #include "Core/Checker.hpp"
+#include "Editor/HighLighter.hpp"
 #include <QWidget>
+#include <KSyntaxHighlighting/Theme>
+#include <QPlainTextEdit>
+#include <utility>
 
 class MessageLogger;
 class QComboBox;
@@ -72,6 +76,10 @@ class TestCases : public QWidget
     void setChecked(int index, bool checked);
     bool isChecked(int index) const;
 
+    QColor getEditorColor(KSyntaxHighlighting::Theme::EditorColorRole role);
+
+    QColor getTextColor(KSyntaxHighlighting::Theme::TextStyle style);
+    void setMainWindowStylesheet();
     void loadFromSavedFiles(const QString &filePath);
     void saveToFiles(const QString &filePath, bool safe);
 

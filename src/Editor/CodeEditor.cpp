@@ -59,6 +59,9 @@
 #include <QTextCharFormat>
 #include <QTextStream>
 #include <QToolTip>
+#include <QMainWindow>
+#include <csignal>
+#include "Editor/CodeEditor.h"
 
 namespace Editor
 {
@@ -160,6 +163,29 @@ void CodeEditor::applySettings(const QString &lang)
         parentheses.push_back({left, right, autoComplete, autoRemove, tabJumpOut});
     }
 }
+void CodeEditor::setMainWindowStylesheet() {
+    QObject *parentObject = parent();  // Start with the immediate parent
+
+    while (parentObject) {
+        if (qobject_cast<QMainWindow*>(parentObject)) {
+            // Found the QMainWindow, set the stylesheet
+            QMainWindow *mainWindow = qobject_cast<QMainWindow*>(parentObject);
+            mainWindow->setStyleSheet(QString("background-color: %1; selection-background-color: %2; color: %3;")
+                                          .arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(),
+                                               getEditorColor(KSyntaxHighlighting::Theme::TextSelection).name(),
+                                               getTextColor(KSyntaxHighlighting::Theme::Normal).name()));
+            // Adjust the stylesheet or make other modifications as needed
+            break;
+        }
+
+        parentObject = parentObject->parent();  // Move up the hierarchy
+    }
+
+    setStyleSheet(QString("QPlainTextEdit { background-color: %1; selection-background-color: %2; color: %3; }")
+                      .arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(),
+                           getEditorColor(KSyntaxHighlighting::Theme::TextSelection).name(),
+                           getTextColor(KSyntaxHighlighting::Theme::Normal).name()));
+}
 
 void CodeEditor::setTheme(const KSyntaxHighlighting::Theme &newTheme)
 {
@@ -167,11 +193,15 @@ void CodeEditor::setTheme(const KSyntaxHighlighting::Theme &newTheme)
 
     if (theme.isValid())
     {
+        QString cl = getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name();
 
-        setStyleSheet(QString("QPlainTextEdit { background-color: %1; selection-background-color: %2; color: %3; }")
-                          .arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(),
-                               getEditorColor(KSyntaxHighlighting::Theme::TextSelection).name(),
-                               getTextColor(KSyntaxHighlighting::Theme::Normal).name()));
+        setMainWindowStylesheet();
+//        QMainWindow::setStyleSheet(QString("background-color: %1; color: %2;").arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(), getTextColor(KSyntaxHighlighting::Theme::Normal).name()));
+//         setStyleSheet("background-color: " + cl);
+        // setStyleSheet(QString(" background-color: %1; selection-background-color: %2; color: %3;")
+        //                   .arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(),
+        //                        getEditorColor(KSyntaxHighlighting::Theme::TextSelection).name(),
+        //                        getTextColor(KSyntaxHighlighting::Theme::Normal).name()));
     }
 
     highlighter->setTheme(theme);
@@ -180,7 +210,13 @@ void CodeEditor::setTheme(const KSyntaxHighlighting::Theme &newTheme)
     highlightOccurrences();
     highlightParentheses();
     highlightAllSquiggle();
+    setMainWindowStylesheet();
 }
+
+KSyntaxHighlighting::Theme CodeEditor::getTheme(){
+    return theme;
+}
+
 
 int CodeEditor::sidebarWidth() const
 {

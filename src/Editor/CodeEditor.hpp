@@ -106,6 +106,7 @@ class CodeEditor : public QPlainTextEdit
 
     void highlightAllSquiggle();
 
+    KSyntaxHighlighting::Theme getTheme();
     /**
      * @brief clearSquiggle, Clears complete squiggle from editor
      */
@@ -293,7 +294,7 @@ class CodeEditor : public QPlainTextEdit
      * @brief Set the theme of the Code Editor from KSybtaxHighlighting::Theme
      */
     void setTheme(const KSyntaxHighlighting::Theme &newTheme);
-
+    void setMainWindowStylesheet();
     void updateExtraSelections();
 
     QColor getEditorColor(KSyntaxHighlighting::Theme::EditorColorRole role);
@@ -321,6 +322,8 @@ class CodeEditor : public QPlainTextEdit
     QList<QTextEdit::ExtraSelection> currentLineExtraSelections, parenthesesExtraSelections, occurrencesExtraSelections,
         squigglesExtraSelections, squigglesLineExtraSelections;
 
+    KSyntaxHighlighting::Theme theme;
+
     QString m_tabReplace;
 
     bool m_vimCursor = false;
@@ -336,8 +339,6 @@ class CodeEditor : public QPlainTextEdit
     QVector<Parenthesis> parentheses;
 
     Highlighter *highlighter = nullptr;
-
-    KSyntaxHighlighting::Theme theme;
 
     CodeEditorSidebar *sideBar = nullptr;
 

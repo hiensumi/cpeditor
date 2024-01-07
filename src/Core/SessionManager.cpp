@@ -37,6 +37,7 @@ const static QStringList sessionFileLocations = {
 #endif
     "$APPCONFIG/cp_editor_session.json"};
 
+
 SessionManager::SessionManager(AppWindow *appwindow) : QObject(appwindow), app(appwindow)
 {
     timer = new QTimer(this);

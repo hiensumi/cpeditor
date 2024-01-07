@@ -159,6 +159,7 @@ AppWindow::AppWindow(bool cpp, bool java, bool python, bool noHotExit, int numbe
     finishConstruction();
 }
 
+
 void AppWindow::finishConstruction()
 {
     if (ui->tabWidget->count() == 0)

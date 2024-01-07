@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>CP Editor: An editor specially designed for competitive programming</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(12, 12, 12);
+color: rgb(207, 212, 203);</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
@@ -45,7 +49,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -295,7 +299,7 @@
     <string>Delete Line</string>
    </property>
    <property name="shortcut">
-    <string notr="true">Ctrl+Shift+K</string>
+    <string notr="true">Ctrl+D</string>
    </property>
   </action>
   <action name="actionToggleComment">
@@ -327,7 +331,7 @@
     <string>Compile and Run</string>
    </property>
    <property name="shortcut">
-    <string notr="true">Ctrl+Shift+R</string>
+    <string notr="true">Ctrl+B</string>
    </property>
   </action>
   <action name="actionRun">

@@ -22,6 +22,10 @@
 #include "mainwindow.hpp"
 #include <QMainWindow>
 #include <QSystemTrayIcon>
+#include "Editor/HighLighter.hpp"
+#include <KSyntaxHighlighting/Theme>
+#include <QPlainTextEdit>
+#include <utility>
 
 class FindReplaceDialog;
 class MessageLogger;
@@ -222,6 +226,7 @@ class AppWindow : public QMainWindow
     void initialized();
 
   private:
+    KSyntaxHighlighting::Theme theme;
     Ui::AppWindow *ui;
     MessageLogger *activeLogger = nullptr;
 
