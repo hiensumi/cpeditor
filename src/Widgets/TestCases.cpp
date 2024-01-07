@@ -34,14 +34,12 @@
 #include <QSet>
 #include <QVBoxLayout>
 
-#include "Core/EventLogger.hpp"
 #include "Editor/CodeEditor.h"
 #include "Editor/CodeEditorSideBar.hpp"
 #include "Editor/HighLighter.hpp"
 #include "Editor/KSHRepository.hpp"
 #include "Editor/LanguageRepository.hpp"
 #include "Settings/SettingsManager.hpp"
-#include "generated/SettingsHelper.hpp"
 #include <KSyntaxHighlighting/Definition>
 #include <KSyntaxHighlighting/Format>
 #include <QApplication>
