@@ -169,7 +169,7 @@ void CodeEditor::setMainWindowStylesheet() {
     while (parentObject) {
         if (qobject_cast<QMainWindow*>(parentObject)) {
             // Found the QMainWindow, set the stylesheet
-            auto *mainWindow = qobject_cast<QMainWindow*>(parentObject);
+            QMainWindow *mainWindow = qobject_cast<QMainWindow*>(parentObject);
             mainWindow->setStyleSheet(QString("background-color: %1; selection-background-color: %2; color: %3;")
                                           .arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(),
                                                getEditorColor(KSyntaxHighlighting::Theme::TextSelection).name(),
@@ -196,12 +196,15 @@ void CodeEditor::setTheme(const KSyntaxHighlighting::Theme &newTheme)
         QString cl = getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name();
 
         setMainWindowStylesheet();
-//        QMainWindow::setStyleSheet(QString("background-color: %1; color: %2;").arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(), getTextColor(KSyntaxHighlighting::Theme::Normal).name()));
-//         setStyleSheet("background-color: " + cl);
-        // setStyleSheet(QString(" background-color: %1; selection-background-color: %2; color: %3;")
-        //                   .arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(),
-        //                        getEditorColor(KSyntaxHighlighting::Theme::TextSelection).name(),
-        //                        getTextColor(KSyntaxHighlighting::Theme::Normal).name()));
+        qApp->setStyleSheet(QString("QMainWindow{ background-color: %1; selection-background-color: %2; color: %3; }")
+                                .arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(),
+                                     getEditorColor(KSyntaxHighlighting::Theme::TextSelection).name(),
+                                     getTextColor(KSyntaxHighlighting::Theme::Normal).name()));
+
+        qApp->setStyleSheet(QString("QWidget{ background-color: %1; selection-background-color: %2; color: %3; }")
+                                .arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(),
+                                     getEditorColor(KSyntaxHighlighting::Theme::TextSelection).name(),
+                                     getTextColor(KSyntaxHighlighting::Theme::Normal).name()));
     }
 
     highlighter->setTheme(theme);

@@ -1,0 +1,2 @@
+background-color: rgb(12, 12, 12);
+color: rgb(207, 212, 203);

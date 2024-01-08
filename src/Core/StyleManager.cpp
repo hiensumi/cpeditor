@@ -15,6 +15,7 @@
  *
  */
 
+#include "Editor/CodeEditor.hpp"
 #include "Core/StyleManager.hpp"
 #include "Core/EventLogger.hpp"
 #include <QApplication>
@@ -22,6 +23,14 @@
 #include <QSettings>
 #include <QStyle>
 #include <QStyleFactory>
+#include "Editor/CodeEditorSideBar.hpp"
+#include "Editor/HighLighter.hpp"
+#include "Editor/KSHRepository.hpp"
+#include "Editor/LanguageRepository.hpp"
+#include "Settings/SettingsManager.hpp"
+#include "generated/SettingsHelper.hpp"
+#include <KSyntaxHighlighting/Definition>
+#include <KSyntaxHighlighting/Format>
 
 namespace Core
 {
@@ -117,13 +126,13 @@ void StyleManager::setPalette(const QString &styleName)
 {
     if (styleName == "Light Fusion")
         qApp->setPalette(lightFusionPalette());
-    else if (styleName == "Dark Fusion")
-        qApp->setPalette(darkFusionPalette());
+    else if (styleName == "Dark Toilet")
+        qApp->setPalette(skibiDark());
     else
         qApp->setPalette(defaultPalette);
 }
 
-QPalette StyleManager::darkFusionPalette()
+QPalette StyleManager::skibiDark()
 {
     QPalette darkPalette = defaultPalette;
 
