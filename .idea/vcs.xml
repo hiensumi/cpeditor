@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/third_party/QtFindReplaceDialog" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/third_party/extra-cmake-modules" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/third_party/lsp-cpp" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/third_party/qhttp" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/third_party/singleapplication" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/third_party/syntax-highlighting" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/third_party/testlib" vcs="Git" />
+  </component>
+</project>

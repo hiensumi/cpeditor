@@ -69,7 +69,7 @@ bool StyleManager::setStyle(const QString &styleName)
     if (styleName == "Auto Fusion")
     {
         if (isWindowsDarkThemeForApps())
-            currentStyle = "Dark Fusion";
+            currentStyle = "Dark Toilet";
         else
             currentStyle = "Light Fusion";
     }
@@ -81,7 +81,7 @@ bool StyleManager::setStyle(const QString &styleName)
     {
         qApp->setStyle(defaultStyle);
     }
-    else if (currentStyle == "Light Fusion" || currentStyle == "Dark Fusion")
+    else if (currentStyle == "Light Fusion" || currentStyle == "Dark Toilet")
     {
         qApp->setStyle("Fusion");
     }
@@ -101,7 +101,7 @@ QStringList StyleManager::styleList()
     {
         list.removeAll("Fusion");
         list.append("Light Fusion");
-        list.append("Dark Fusion");
+        list.append("Dark Toilet");
 
 #ifdef Q_OS_WIN // On Windows we can check if we have dark theme enabled from system.
         list.append("Auto Fusion");
