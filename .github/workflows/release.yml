@@ -1,6 +1,6 @@
 name: "Release"
 
-on: 
+on:
   push:
     tags:
       - "*"
@@ -40,16 +40,16 @@ jobs:
       matrix:
         config:
           - os: "ubuntu-20.04"
-            portable-option: "On"
+            portable-option: "Off"
             winlibs: false
           - os: "macos-latest"
-            portable-option: "On"
+            portable-option: "Off"
             winlibs: false
           - os: "windows-2019"
             arch: x64
             platform: x64
             qtarch: win64_msvc2019_64
-            portable-option: "On"
+            portable-option: "Off"
             filename-suffix: "setup.exe"
             winlibs: false
             ecm-path: "C:/Program Files/ECM"
@@ -65,7 +65,7 @@ jobs:
             arch: x86
             platform: Win32
             qtarch: win32_msvc2019
-            portable-option: "On"
+            portable-option: "Off"
             filename-suffix: "setup.exe"
             winlibs: false
             ecm-path: "C:/Program Files (x86)/ECM"
@@ -81,7 +81,7 @@ jobs:
             arch: x64
             platform: x64
             qtarch: win64_msvc2019_64
-            portable-option: "On"
+            portable-option: "Off"
             filename-suffix: "setup-with-gcc-${{ needs.get-winlibs-outputs.outputs.GCC }}-LLVM-${{ needs.get-winlibs-outputs.outputs.LLVM }}.exe"
             winlibs: true
             winlibs-arch: x86_64-posix-seh
@@ -101,7 +101,7 @@ jobs:
             arch: x86
             platform: Win32
             qtarch: win32_msvc2019
-            portable-option: "On"
+            portable-option: "Off"
             filename-suffix: "setup-with-gcc-${{ needs.get-winlibs-outputs.outputs.GCC }}-LLVM-${{ needs.get-winlibs-outputs.outputs.LLVM }}.exe"
             winlibs: true
             winlibs-arch: i686-posix-dwarf
@@ -373,4 +373,4 @@ jobs:
           files: cpeditor-${{ steps.get_version.outputs.VERSION }}-windows-${{ matrix.config.arch }}-${{ matrix.config.filename-suffix }}
           name: CP Editor ${{ steps.get_version.outputs.VERSION }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}y
