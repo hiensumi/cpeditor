@@ -373,4 +373,4 @@ jobs:
           files: cpeditor-${{ steps.get_version.outputs.VERSION }}-windows-${{ matrix.config.arch }}-${{ matrix.config.filename-suffix }}
           name: CP Editor ${{ steps.get_version.outputs.VERSION }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}y
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
