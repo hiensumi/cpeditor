@@ -38,7 +38,7 @@
     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-
+#include <iostream>
 #include "Editor/CodeEditor.hpp"
 #include "Core/EventLogger.hpp"
 #include "Editor/CodeEditorSideBar.hpp"
@@ -163,28 +163,51 @@ void CodeEditor::applySettings(const QString &lang)
         parentheses.push_back({left, right, autoComplete, autoRemove, tabJumpOut});
     }
 }
+void Appupdate(QString widgetName, QString newStyle)
+{
+    QString existingStylesheet = qApp->styleSheet();
+        // Create a regular expression pattern to match the style for the specified widget
+    QString pattern = widgetName + "\\s*\\{[^\\}]+\\}";
+
+    // Create a regular expression object
+    QRegularExpression regex(pattern);
+
+    // Remove the existing style for the specified widget
+    QString removedStylesheet = existingStylesheet.replace(regex, "");
+
+    // Add the new style for the specified widget
+    QString modifiedStylesheet = removedStylesheet + "\n" + widgetName + " {" + newStyle + "}";
+
+    qApp->setStyleSheet(modifiedStylesheet);
+}
 void CodeEditor::setMainWindowStylesheet() {
-    QObject *parentObject = parent();  // Start with the immediate parent
 
-    while (parentObject) {
-        if (qobject_cast<QMainWindow*>(parentObject)) {
-            // Found the QMainWindow, set the stylesheet
-            auto *mainWindow = qobject_cast<QMainWindow*>(parentObject);
-            mainWindow->setStyleSheet(QString("background-color: %1; selection-background-color: %2; color: %3;")
-                                          .arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(),
-                                               getEditorColor(KSyntaxHighlighting::Theme::TextSelection).name(),
-                                               getTextColor(KSyntaxHighlighting::Theme::Normal).name()));
-            // Adjust the stylesheet or make other modifications as needed
-            break;
-        }
+    QString newTheme = QString("background-color: %1; selection-background-color: %2; color: %3;")
+                           .arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(),
+                                getEditorColor(KSyntaxHighlighting::Theme::TextSelection).name(),
+                                getTextColor(KSyntaxHighlighting::Theme::Normal).name());
+    // Adjust the stylesheet or make other modifications as needed
+    Appupdate(QString("QMainWindow"), newTheme);
 
-        parentObject = parentObject->parent();  // Move up the hierarchy
-    }
-
-    setStyleSheet(QString("QPlainTextEdit { background-color: %1; selection-background-color: %2; color: %3; }")
+    QString newEditor = QString("background-color: %1; selection-background-color: %2; color: %3;")
                       .arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(),
                            getEditorColor(KSyntaxHighlighting::Theme::TextSelection).name(),
-                           getTextColor(KSyntaxHighlighting::Theme::Normal).name()));
+                           getTextColor(KSyntaxHighlighting::Theme::Normal).name());
+
+    Appupdate(QString("QPlainTextEdit"), newEditor);
+
+    QString newWidget = QString("background-color: %1; selection-background-color: %2; color: %3;")
+                                    .arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(),
+                                         getEditorColor(KSyntaxHighlighting::Theme::TextSelection).name(),
+                                         getTextColor(KSyntaxHighlighting::Theme::Normal).name());
+
+    Appupdate(QString("QWidget"), newWidget);
+
+    QString tab = QString("image: url(:/icon.png);");
+    Appupdate(QString("QTabBar::close-button"), tab);
+
+//    QString x = qApp->styleSheet();
+//    std::cout << x.toStdString() << "\n\n";
 }
 
 void CodeEditor::setTheme(const KSyntaxHighlighting::Theme &newTheme)
@@ -193,18 +216,13 @@ void CodeEditor::setTheme(const KSyntaxHighlighting::Theme &newTheme)
 
     if (theme.isValid())
     {
-        QString cl = getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name();
-
         setMainWindowStylesheet();
-        qApp->setStyleSheet(QString("QMainWindow{ background-color: %1; selection-background-color: %2; color: %3; }")
-                                .arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(),
-                                     getEditorColor(KSyntaxHighlighting::Theme::TextSelection).name(),
-                                     getTextColor(KSyntaxHighlighting::Theme::Normal).name()));
+//        qApp->setStyleSheet(QString("QMainWindow{ background-color: %1; selection-background-color: %2; color: %3; }")
+//                                .arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(),
+//                                     getEditorColor(KSyntaxHighlighting::Theme::TextSelection).name(),
+//                                     getTextColor(KSyntaxHighlighting::Theme::Normal).name()));
 
-        qApp->setStyleSheet(QString("QWidget{ background-color: %1; selection-background-color: %2; color: %3; }")
-                                .arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(),
-                                     getEditorColor(KSyntaxHighlighting::Theme::TextSelection).name(),
-                                     getTextColor(KSyntaxHighlighting::Theme::Normal).name()));
+//        qApp->setStyleSheet();
     }
 
     highlighter->setTheme(theme);

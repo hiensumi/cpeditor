@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+        <file>cpicon.png</file>
         <file>icon.png</file>
         <file>../DONATE.md</file>
         <file>../DONATE_zh-CN.md</file>

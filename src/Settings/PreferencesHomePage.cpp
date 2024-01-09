@@ -39,7 +39,7 @@ void PreferencesHomePage::init()
     layout->addStretch();
 
     auto *iconLabel = new QLabel();
-    iconLabel->setPixmap(QPixmap(":/icon.png").scaledToHeight(128, Qt::SmoothTransformation));
+    iconLabel->setPixmap(QPixmap(":/cpicon.png").scaledToHeight(128, Qt::SmoothTransformation));
     layout->addWidget(iconLabel);
     layout->setAlignment(iconLabel, Qt::AlignCenter);
 

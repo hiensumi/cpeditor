@@ -93,7 +93,7 @@ AppWindow::AppWindow(bool noHotExit, QWidget *parent) : QMainWindow(parent), ui(
 #ifdef Q_OS_MACOS
     setWindowIcon(QIcon(":/macos-icon.png"));
 #else
-    setWindowIcon(QIcon(":/icon.png"));
+    setWindowIcon(QIcon(":/cpicon.png"));
 #endif
 
 #ifdef Q_OS_WIN
@@ -317,7 +317,7 @@ void AppWindow::allocate()
     trayIconMenu->addAction(tr("About"), this, &AppWindow::on_actionAbout_triggered);
     trayIconMenu->addAction(tr("Quit"), this, &AppWindow::on_actionQuit_triggered);
     trayIcon = new QSystemTrayIcon();
-    trayIcon->setIcon(QIcon(":/icon.png"));
+    trayIcon->setIcon(QIcon(":/cpicon.png"));
     trayIcon->setContextMenu(trayIconMenu);
     trayIcon->show();
 
@@ -438,6 +438,9 @@ void AppWindow::openTab(MainWindow *window, MainWindow *after)
 
     window->getEditor()->setFocus();
     onEditorFileChanged();
+//    QString cur = qApp->styleSheet();
+//    QString added = cur + "\n" + " QTabBar::close-button{ image: url(:/icon.png);}";
+//    qApp->setStyleSheet(added);
 }
 
 void AppWindow::openTab(const MainWindow::EditorStatus &status, bool duplicate, MainWindow *after)

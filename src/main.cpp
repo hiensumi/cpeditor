@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 #ifdef Q_OS_MACOS
     QApplication::setWindowIcon(QIcon(":/macos-icon.png"));
 #else
-    QApplication::setWindowIcon(QIcon(":/icon.png"));
+    QApplication::setWindowIcon(QIcon(":/cpicon.png"));
 #endif
 
 #ifdef Q_OS_WIN
