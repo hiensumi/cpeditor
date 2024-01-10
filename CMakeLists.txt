@@ -37,7 +37,7 @@ add_subdirectory(third_party/qhttp)
 
 add_subdirectory(third_party/diff_match_patch)
 
-option(PORTABLE_VERSION "Build the portable version" On)
+option(PORTABLE_VERSION "Build the portable version" Off)
 option(USE_CLANG_TIDY "Use clang-tidy to lint the files" Off)
 
 string(TIMESTAMP BUILD_DATE "%Y-%m-%d")
@@ -128,8 +128,7 @@ if(USE_CLANG_TIDY)
 	message(STATUS "clang-tidy checks will be performed")
 endif()
 
-set(RESOURCES resources/resources.qrc
-        src/Editor/CodeEditor.h)
+set(RESOURCES resources/resources.qrc)
 if(APPLE)
   list(APPEND RESOURCES resources/macos-resources.qrc)
 endif()

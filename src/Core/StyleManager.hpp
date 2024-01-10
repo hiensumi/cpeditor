@@ -36,7 +36,7 @@ class StyleManager
 
     static void setPalette(const QString &styleName);
 
-    static QPalette skibiDark();
+    static QPalette darkFusionPalette();
 
     static QPalette lightFusionPalette();
 

@@ -159,7 +159,6 @@ AppWindow::AppWindow(bool cpp, bool java, bool python, bool noHotExit, int numbe
     finishConstruction();
 }
 
-
 void AppWindow::finishConstruction()
 {
     if (ui->tabWidget->count() == 0)
@@ -438,9 +437,6 @@ void AppWindow::openTab(MainWindow *window, MainWindow *after)
 
     window->getEditor()->setFocus();
     onEditorFileChanged();
-//    QString cur = qApp->styleSheet();
-//    QString added = cur + "\n" + " QTabBar::close-button{ image: url(:/icon.png);}";
-//    qApp->setStyleSheet(added);
 }
 
 void AppWindow::openTab(const MainWindow::EditorStatus &status, bool duplicate, MainWindow *after)

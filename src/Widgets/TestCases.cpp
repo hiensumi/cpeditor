@@ -34,28 +34,6 @@
 #include <QSet>
 #include <QVBoxLayout>
 
-#include "Editor/CodeEditor.h"
-#include "Editor/CodeEditorSideBar.hpp"
-#include "Editor/HighLighter.hpp"
-#include "Editor/KSHRepository.hpp"
-#include "Editor/LanguageRepository.hpp"
-#include "Settings/SettingsManager.hpp"
-#include <KSyntaxHighlighting/Definition>
-#include <KSyntaxHighlighting/Format>
-#include <QApplication>
-#include <QFile>
-#include <QFontDatabase>
-#include <QMainWindow>
-#include <QMimeData>
-#include <QPainter>
-#include <QRegularExpression>
-#include <QScrollBar>
-#include <QTextBlock>
-#include <QTextCharFormat>
-#include <QTextStream>
-#include <QToolTip>
-#include <csignal>
-
 #define VALIDATE_INDEX(x) validateIndex(x, __func__)
 
 namespace Widgets
@@ -64,7 +42,6 @@ const int TestCases::MAX_NUMBER_OF_TESTCASES;
 
 TestCases::TestCases(MessageLogger *logger, QWidget *parent) : QWidget(parent), log(logger)
 {
-
     mainLayout = new QVBoxLayout(this);
     titleLayout = new QHBoxLayout();
     checkerLayout = new QHBoxLayout();
@@ -287,6 +264,7 @@ TestCases::TestCases(MessageLogger *logger, QWidget *parent) : QWidget(parent), 
     connect(addButton, &QPushButton::clicked, this, &TestCases::on_addButton_clicked);
     connect(addCheckerButton, &QPushButton::clicked, this, &TestCases::on_addCheckerButton_clicked);
 }
+
 void TestCases::setInput(int index, const QString &input)
 {
     if (VALIDATE_INDEX(index))
