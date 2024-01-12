@@ -8,6 +8,5 @@
     <mapping directory="$PROJECT_DIR$/third_party/qhttp" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/third_party/singleapplication" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/third_party/syntax-highlighting" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/third_party/testlib" vcs="Git" />
   </component>
 </project>

@@ -84,9 +84,9 @@ TestCase::TestCase(int index, MessageLogger *logger, QWidget *parent, const QStr
     splitter->addWidget(expectedWidget);
     mainLayout->addWidget(splitter);
 
-    inputLayout->setContentsMargins(3, 0, 3, 0);
-    outputLayout->setContentsMargins(3, 0, 3, 0);
-    expectedLayout->setContentsMargins(3, 0, 3, 0);
+    inputLayout->setContentsMargins(1, 0, 1, 0);
+    outputLayout->setContentsMargins(1, 0, 1, 0);
+    expectedLayout->setContentsMargins(1, 0, 1, 0);
 
     splitter->setChildrenCollapsible(false);
 

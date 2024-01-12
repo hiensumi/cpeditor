@@ -618,6 +618,13 @@
     "old": ["hotkey_snippets"]
   },
   {
+    "name": "Hotkey/Delete Line",
+    "desc": "Delete current line nma t luoi lam qua",
+    "type": "QString",
+    "ui": "ShortcutItem",
+    "old": ["hotkey_delline"]
+  },
+  {
     "name": "Hot Exit/Enable",
     "desc": "Restore last session at startup",
     "type": "bool",

@@ -169,17 +169,17 @@ void Appupdate(QString widgetName, QString newStyle){
 
     // Create a regular expression object
     QRegularExpression regex(pattern);
-
+    if(existingStylesheet.contains(widgetName) and existingStylesheet.contains(newStyle)) return;
     // Remove the existing style for the specified widget
     QString removedStylesheet = existingStylesheet.replace(regex, "");
 
     // Add the new style for the specified widget
     QString modifiedStylesheet = removedStylesheet + "\n" + widgetName + " {" + newStyle + "}";
 
-       qApp->setStyleSheet(modifiedStylesheet);
+    qApp->setStyleSheet(modifiedStylesheet);
 //        qApp->setStyleSheet(existingStylesheet);
 }
-
+bool tabset = 0;
 void CodeEditor::setMainWindowStylesheet() {
 
    QString newTheme = QString("background-color: %1; selection-background-color: %2; color: %3;")
@@ -222,6 +222,11 @@ void CodeEditor::setMainWindowStylesheet() {
        Appupdate(QString("QScrollBar::add-line:horizontal"), QString("border: none; background-color: %1; width: 15px; border-bottom-left-radius: 7px; border-bottom-right-radius: 7px; subcontrol-position: bottom; subcontrol-origin: margin;").arg(cl.name()));
        scrollset = 1;
    }
+   if(tabset == 0){
+//       Appupdate(QString("QTabBar::tab"), QString(""));
+//        tabset = 1;
+   }
+
 
 }
 
@@ -997,7 +1002,7 @@ void CodeEditor::keyPressEvent(QKeyEvent *e)
        return;
    }
 
-   if (e->key() == Qt::Key_Delete && e->modifiers() == Qt::ShiftModifier)
+   if (e->key() == Qt::Key_D && e->modifiers() == Qt::ControlModifier)
    {
        deleteLine();
        return;
