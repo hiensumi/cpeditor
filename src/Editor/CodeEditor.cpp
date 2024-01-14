@@ -169,7 +169,7 @@ void Appupdate(QString widgetName, QString newStyle){
 
     // Create a regular expression object
     QRegularExpression regex(pattern);
-    if(existingStylesheet.contains(widgetName) and existingStylesheet.contains(newStyle)) return;
+    if(existingStylesheet.contains(widgetName) && existingStylesheet.contains(newStyle) ) return;
     // Remove the existing style for the specified widget
     QString removedStylesheet = existingStylesheet.replace(regex, "");
 
