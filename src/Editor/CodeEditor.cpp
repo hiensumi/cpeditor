@@ -222,11 +222,10 @@ void CodeEditor::setMainWindowStylesheet() {
        Appupdate(QString("QScrollBar::add-line:horizontal"), QString("border: none; background-color: %1; width: 15px; border-bottom-left-radius: 7px; border-bottom-right-radius: 7px; subcontrol-position: bottom; subcontrol-origin: margin;").arg(cl.name()));
        scrollset = 1;
    }
-   if(tabset == 0){
+//   if(tabset == 0){
 //       Appupdate(QString("QTabBar::tab"), QString(""));
 //        tabset = 1;
-   }
-
+//   }
 
 }
 
