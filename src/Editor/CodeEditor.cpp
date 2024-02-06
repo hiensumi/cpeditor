@@ -172,6 +172,7 @@ void Appupdate(QString widgetName, QString newStyle){
     for(std::pair <QString,QString> p: mp){
         QString x = p.first;
         QString y = p.second;
+        // hiensumi was here
         newss = newss + x + " {" + y + "}" + "\n";
     }
 
