@@ -38,7 +38,7 @@
    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#include <iostream>
+#include <unordered_map>
 #include "Editor/CodeEditor.hpp"
 #include "Core/EventLogger.hpp"
 #include "Editor/CodeEditorSideBar.hpp"
@@ -109,16 +109,17 @@ void CodeEditor::applySettings(const QString &lang)
        KSyntaxHighlightingRepository::getSyntaxHighlightingRepository()->definitionForName(language));
 
    QString editorThemeName = SettingsHelper::getEditorTheme();
-   if (editorThemeName == "Default" || !KSyntaxHighlightingRepository::themeNames().contains(editorThemeName))
+   if (editorThemeName == "Default" )
    {
        bool isLight = getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).lightness() < 128;
        auto defaultTheme = KSyntaxHighlightingRepository::getSyntaxHighlightingRepository()->defaultTheme(
            isLight ? KSyntaxHighlighting::Repository::LightTheme : KSyntaxHighlighting::Repository::DarkTheme);
-       setTheme(defaultTheme);
+//       setTheme(defaultTheme, true);
        SettingsHelper::setEditorTheme(defaultTheme.name());
    }
    else
    {
+       scrollset = 0;
        setTheme(KSyntaxHighlightingRepository::getSyntaxHighlightingRepository()->theme(editorThemeName));
    }
 
@@ -162,49 +163,43 @@ void CodeEditor::applySettings(const QString &lang)
        parentheses.push_back({left, right, autoComplete, autoRemove, tabJumpOut});
    }
 }
+std::unordered_map <QString,QString> mp;
+
 void Appupdate(QString widgetName, QString newStyle){
-    QString existingStylesheet = qApp->styleSheet();
-    // Create a regular expression pattern to match the style for the specified widget
-    QString pattern = widgetName + "\\s*\\{[^\\}]+\\}";
+    if(mp[widgetName] == newStyle) return;
+    QString newss;
+    mp[widgetName] = newStyle;
+    for(auto [x,y] : mp){
+        newss = newss + x + " {" + y + "}" + "\n";
+    }
 
-    // Create a regular expression object
-    QRegularExpression regex(pattern);
-    if(existingStylesheet.contains(widgetName) && existingStylesheet.contains(newStyle) ) return;
-    // Remove the existing style for the specified widget
-    QString removedStylesheet = existingStylesheet.replace(regex, "");
-
-    // Add the new style for the specified widget
-    QString modifiedStylesheet = removedStylesheet + "\n" + widgetName + " {" + newStyle + "}";
-
-    qApp->setStyleSheet(modifiedStylesheet);
-//        qApp->setStyleSheet(existingStylesheet);
+    qApp->setStyleSheet(newss);
 }
 bool tabset = 0;
 void CodeEditor::setMainWindowStylesheet() {
 
-   QString newTheme = QString("background-color: %1; selection-background-color: %2; color: %3;")
-                          .arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(),
-                               getEditorColor(KSyntaxHighlighting::Theme::TextSelection).name(),
-                               getTextColor(KSyntaxHighlighting::Theme::Normal).name());
+    QColor editorcolor1 = getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor);
+    QColor editorcolor2 = getEditorColor(KSyntaxHighlighting::Theme::TextSelection);
+    QColor editorcolor3 = getTextColor(KSyntaxHighlighting::Theme::Normal);
+    QString newTheme = QString("background-color: %1; selection-background-color: %2; color: %3;")
+                          .arg(editorcolor1.name(),
+                               editorcolor2.name(),
+                               editorcolor3.name());
    // Adjust the stylesheet or make other modifications as needed
    Appupdate(QString("QMainWindow"), newTheme);
 
-   QString newEditor = QString("background-color: %1; selection-background-color: %2; color: %3;")
-                           .arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(),
-                                getEditorColor(KSyntaxHighlighting::Theme::TextSelection).name(),
-                                getTextColor(KSyntaxHighlighting::Theme::Normal).name());
+//   QString newWidget = QString("background-color: %1; selection-background-color: %2; color: %3;")
+//                           .arg(editorcolor1.name(),
+//                                editorcolor2.name(),
+//                                editorcolor3.name());
 
-   Appupdate(QString("QPlainTextEdit"), newEditor);
+   Appupdate(QString("QWidget"), newTheme);
 
-   QString newWidget = QString("background-color: %1; selection-background-color: %2; color: %3;")
-                           .arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(),
-                                getEditorColor(KSyntaxHighlighting::Theme::TextSelection).name(),
-                                getTextColor(KSyntaxHighlighting::Theme::Normal).name());
-
-   Appupdate(QString("QWidget"), newWidget);
-
-   QString tab = QString("image: url(:/icon.png);");
-   Appupdate(QString("QTabBar::close-button"), tab);
+   if(tabset == 0){
+       QString tab = QString("image: url(:/icon.png);");
+       Appupdate(QString("QTabBar::close-button"), tab);
+       tabset = 1;
+   }
 
    //    QString x = qApp->styleSheet();
    //    std::cout << x.toStdString() << "\n\n";
@@ -236,19 +231,20 @@ void CodeEditor::setTheme(const KSyntaxHighlighting::Theme &newTheme)
        if (theme.isValid())
        {
             setMainWindowStylesheet();
-            setStyleSheet(QString("QPlainTextEdit { background-color: %1; selection-background-color: %2; color: %3; }")
-                     .arg(getEditorColor(KSyntaxHighlighting::Theme::BackgroundColor).name(),
-                          getEditorColor(KSyntaxHighlighting::Theme::TextSelection).name(),
-                          getTextColor(KSyntaxHighlighting::Theme::Normal).name()));
-
+            highlighter->setTheme(theme);
+            highlighter->rehighlight();
+            highlightCurrentLine();
+            highlightOccurrences();
+            highlightParentheses();
+            highlightAllSquiggle();
        }
 
-   highlighter->setTheme(theme);
-   highlighter->rehighlight();
-   highlightCurrentLine();
-   highlightOccurrences();
-   highlightParentheses();
-   highlightAllSquiggle();
+//   highlighter->setTheme(theme);
+//   highlighter->rehighlight();
+//   highlightCurrentLine();
+//   highlightOccurrences();
+//   highlightParentheses();
+//   highlightAllSquiggle();
 //   setMainWindowStylesheet();
 }
 
