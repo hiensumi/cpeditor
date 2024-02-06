@@ -169,7 +169,9 @@ void Appupdate(QString widgetName, QString newStyle){
     if(mp[widgetName] == newStyle) return;
     QString newss;
     mp[widgetName] = newStyle;
-    for(auto [x,y] : mp){
+    for(std::pair <QString,QString> p: mp){
+        QString x = p.first;
+        QString y = p.second;
         newss = newss + x + " {" + y + "}" + "\n";
     }
 
